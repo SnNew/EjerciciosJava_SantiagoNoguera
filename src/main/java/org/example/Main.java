@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
 
-        String[] articulos = {"Agua", "Refresco", "Papas", "Chocolate", "Galletas"};
+        String[] articulos = {"Agua sabor limon", "Gaseosa", "Doritos", "Chocolatina", "Galletas oreo"};
         int[] costos = {2000, 3500, 2600, 2500, 4000};
         int[] seleccion = new int[5];
         int montoTotal = 0;
