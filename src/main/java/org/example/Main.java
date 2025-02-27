@@ -2,48 +2,55 @@ package org.example;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int dinero = 50000;
-        boolean salir = false;
+        Scanner entrada = new Scanner(System.in);
 
-        while (!salir) {
-            System.out.println("\nCAJERO AUTOMATICO");
-            System.out.println("1. Consultar dinero");
-            System.out.println("2. Ingresar dinero");
-            System.out.println("3. Retirar dinero");
-            System.out.println("4. Salir");
+        String[] articulos = {"Agua", "Refresco", "Papas", "Chocolate", "Galletas"};
+        int[] costos = {2000, 3500, 2600, 2500, 4000};
+        int[] seleccion = new int[5];
+        int montoTotal = 0;
 
-            int opcion = scanner.nextInt();
+        System.out.println("Bienvenido al dispensador automatizado.");
+        System.out.println("Estos son los artículos disponibles:");
+        for (int i = 0; i < articulos.length; i++) {
+            System.out.println(i + 1 + ". " + articulos[i] + " - $" + costos[i]);
+        }
 
-            switch (opcion) {
-                case 1 -> System.out.println("Su saldo es de: $" + dinero);
-                case 2 -> {
-                    System.out.print("Ingrese el dinero que desea depositar: ");
-                    int ingreso = scanner.nextInt();
-                    if (ingreso > 0) {
-                        dinero += ingreso;
-                        System.out.println("Depósito exitoso. Su nuevo saldo es de: $" + dinero);
-                    } else {
-                        System.out.println("Ingrese un monto de dinero valido por favor.");
-                    }
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Ingrese el número del artículo que desea comprar (1-5) o 0 para continuar con el pago: ");
+            int eleccion = entrada.nextInt();
+
+            switch (eleccion) {
+                case 0 -> {
+                    i = 5;
                 }
-                case 3 -> {
-                    System.out.print("Cuanto dinero desea retirar: ");
-                    int sacar = scanner.nextInt();
-                    if (sacar > 0 && sacar <= dinero) {
-                        dinero -= sacar;
-                        System.out.println("Retiro exitoso. Su nuevo saldo es de: $" + dinero);
-                    } else {
-                        System.out.println("Monto inválido o insuficiente. por favor ingrese un monto valido");
-                    }
+                case 1, 2, 3, 4, 5 -> {
+                    seleccion[i] = costos[eleccion - 1];
+                    montoTotal += costos[eleccion - 1];
                 }
-                case 4 -> {
-                    salir = true;
-                    System.out.println("Gracias por usar nuestro programa.");
+                default -> {
+                    System.out.println("Opción inválida. Intente nuevamente.");
+                    i--;
                 }
-                default -> System.out.println("Opción no válida. Intente nuevamente.");
             }
         }
-        scanner.close();
+
+        if (montoTotal > 0) {
+            System.out.println("El total de su compra es: $" + montoTotal);
+            System.out.print("Ingrese la cantidad de dinero: ");
+            int efectivo = entrada.nextInt();
+
+            while (efectivo < montoTotal) {
+                System.out.println("Fondos insuficientes. Intente nuevamente.");
+                System.out.print("Ingrese la cantidad de dinero: ");
+                efectivo = entrada.nextInt();
+            }
+
+            int vueltas = efectivo - montoTotal;
+            System.out.println("Compra realizada con éxito. Su cambio es: $" + vueltas);
+        } else {
+            System.out.println("No ha seleccionado ningún artículo. Gracias por visitar el dispensador automatizado.");
+        }
+
+        entrada.close();
     }
 }
