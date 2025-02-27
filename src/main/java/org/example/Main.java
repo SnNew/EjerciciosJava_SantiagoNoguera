@@ -46,7 +46,7 @@ public class Main {
             }
 
             int vueltas = efectivo - montoTotal;
-            System.out.println("Compra realizada con éxito. Su cambio es: $" + vueltas);
+            System.out.println("Compra realizada con éxito. Sus vueltas son de: $" + vueltas);
         } else {
             System.out.println("No ha seleccionado ningún artículo. Gracias por visitar el dispensador automatizado.");
         }
